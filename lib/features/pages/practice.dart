@@ -5,10 +5,9 @@ import 'package:pinyin_quiz/features/controllers/practice_controller.dart';
 import 'package:pinyin_quiz/features/pages/button.dart';
 import 'package:pinyin_quiz/features/pages/dialog_box.dart';
 
-import 'package:pinyin_quiz/features/services/pinyin.dart';
 import 'package:pinyin_quiz/features/services/audio_player.dart';
-import 'package:pinyin_quiz/features/services/json_doc_services.dart';
-import 'package:pinyin_quiz/features/services/session.dart';
+
+const BACKGROUND_COLOR = Color(0xFF1E2124);
 
 class PracticePage extends StatefulWidget {
   const PracticePage({super.key});
@@ -45,13 +44,16 @@ class _PracticePageState extends State<PracticePage> {
       valueListenable: _observablePracticeController.notifier,
       builder: (contest, profile, _) {
         return Scaffold(
+          backgroundColor: BACKGROUND_COLOR,
           body: Padding(
             padding: EdgeInsets.fromLTRB(40, 30, 40, 30),
             child: Column(
               spacing: 8,
               children: [
+                SizedBox(height: 48.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: 16,
                   children: [
                     Column(
                       spacing: 8,
@@ -59,10 +61,9 @@ class _PracticePageState extends State<PracticePage> {
                         DefaultButton(
                           label: 'Speak',
                           onPressed: () async => {
-                            await _audioplayer.play('${profile.pinyinHandler.leftCandidate!}.mp3'),
-                            //await JsonAssetEditor.saveModifiedJson(assetPath: 'pinyin.json', jsonData: {'test': 'ss'})
-                            //await AppPreferences.saveString('test', 'test'),
-                            //print(await AppPreferences.getString('test'))
+                            await _audioplayer.play(
+                              '${profile.pinyinHandler.getPinyinIdentity(profile.pinyinHandler.leftCandidate!)}.mp3',
+                            ),
                           },
                         ),
                         Row(
@@ -282,8 +283,11 @@ class _PracticePageState extends State<PracticePage> {
                                               .pinyinHandler
                                               .leftCandidate!,
                                         );
+                                    Navigator.of(context).pop();
                                   },
-                                  onCancel: () {Navigator.of(context).pop();},
+                                  onCancel: () {
+                                    Navigator.of(context).pop();
+                                  },
                                 );
                               },
                             );
@@ -297,7 +301,9 @@ class _PracticePageState extends State<PracticePage> {
                         DefaultButton(
                           label: 'Speak',
                           onPressed: () async => {
-                            await _audioplayer.play('${profile.pinyinHandler.leftCandidate!}.mp3'),
+                            await _audioplayer.play(
+                              '${profile.pinyinHandler.getPinyinIdentity(profile.pinyinHandler.rightCandidate!)}.mp3',
+                            ),
                           },
                         ),
                         Row(
@@ -511,14 +517,17 @@ class _PracticePageState extends State<PracticePage> {
                                         .value
                                         .pinyinHandler
                                         .blacklistWord(
-                                      _observablePracticeController
-                                          .notifier
-                                          .value
-                                          .pinyinHandler
-                                          .rightCandidate!,
-                                    );
+                                          _observablePracticeController
+                                              .notifier
+                                              .value
+                                              .pinyinHandler
+                                              .rightCandidate!,
+                                        );
+                                    Navigator.of(context).pop();
                                   },
-                                  onCancel: () {Navigator.of(context).pop();},
+                                  onCancel: () {
+                                    Navigator.of(context).pop();
+                                  },
                                 );
                               },
                             );
@@ -528,7 +537,8 @@ class _PracticePageState extends State<PracticePage> {
                     ),
                   ],
                 ),
-                Row(
+                SizedBox(height: 32.0),
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   spacing: 16,
                   children: [
@@ -539,7 +549,8 @@ class _PracticePageState extends State<PracticePage> {
                       },
                     ),
                     DefaultButton(
-                      label: '${profile.pinyinHandler.leftCandidate!}  ${profile.pinyinHandler.rightCandidate!}',
+                      label:
+                          'Next',
                       onPressed: () async {
                         await _observablePracticeController.pinyinSetup();
                       },

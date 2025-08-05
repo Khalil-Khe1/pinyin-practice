@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const BUTTON_COLOR = Color(0xFF424549);
+
 class DefaultButton extends StatefulWidget {
   final String label;
   final VoidCallback onPressed;
@@ -12,7 +14,7 @@ class DefaultButton extends StatefulWidget {
     super.key,
     required this.label,
     required this.onPressed,
-    this.bgColor = Colors.white,
+    this.bgColor = BUTTON_COLOR,
     this.ph = 60,
     this.pv = 20,
     this.isEnabled = true,
@@ -36,13 +38,17 @@ class _DefaultButtonState extends State<DefaultButton> {
         ),
         backgroundColor: widget.isEnabled
             ? widget.bgColor
-            : ([Colors.pink, Colors.lightGreenAccent, Colors.red].contains(widget.bgColor))
+            : ([
+                Colors.pink,
+                Colors.lightGreenAccent,
+                Colors.red,
+              ].contains(widget.bgColor))
             ? widget.bgColor
             : Colors.black12,
         overlayColor: Colors.transparent,
         //splashFactory: NoSplash.splashFactory,
       ),
-      child: Text(widget.label),
+      child: Text(widget.label, style: TextStyle(color: Colors.white)),
     );
   }
 }

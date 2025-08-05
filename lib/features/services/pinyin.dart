@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:pinyin_quiz/features/data/pinyin_dictionary.dart';
+import 'package:pinyin_quiz/features/data/identity.dart';
 import 'package:pinyin_quiz/features/services/session.dart';
-//import 'package:pinyin_quiz/features/services/json_doc_services.dart';
 
 class PinyinHandler {
   late Map<String, Map<String, List<int>>> dictionary = pinyin_dictionary;
@@ -84,6 +84,9 @@ class PinyinHandler {
     } else {
       AppPreferences.saveString(pinyin!, '$previous_entry*$word');
     }
+  }
 
+  String getPinyinIdentity(String word) {
+    return identity[word]!;
   }
 }

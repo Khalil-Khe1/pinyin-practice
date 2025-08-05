@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:pinyin_quiz/features/pages/button.dart';
 
+const BACKGROUND_COLOR = Color(0xFF36393E);
+
 class CustomDialog extends StatefulWidget {
   const CustomDialog({
     super.key,

@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pinyin_quiz/features/pages/dialog_box.dart';
 import 'package:pinyin_quiz/features/services/pinyin.dart';
 
+const BUTTON_COLOR = Color(0xFF424549);
+
 class OptionController {
-  Color bgColor = Colors.white;
+  Color bgColor = BUTTON_COLOR;
   Color confirmColor = Colors.white;
   bool isEnabled = true;
 
@@ -110,7 +113,7 @@ class ObservablePracticeController {
       if (list.contains(key)) {
         for (String tmp_key in list) {
           print(tmp_key);
-          notifier.value.map[tmp_key]!.setColor(Colors.white);
+          notifier.value.map[tmp_key]!.setColor(BACKGROUND_COLOR);
         }
         break;
       }
@@ -142,7 +145,7 @@ class ObservablePracticeController {
     for (String col in notifier.value.columns.keys) {
       List<String> list = notifier.value.columns[col]!;
       for (String key in list) {
-        notifier.value.map[key]!.setColor(Colors.white);
+        notifier.value.map[key]!.setColor(BACKGROUND_COLOR);
       }
     }
     notifier.notifyListeners();
