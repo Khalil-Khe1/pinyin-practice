@@ -50,6 +50,11 @@ class PracticeController {
   final OptionController confirmLeft = OptionController();
   final OptionController confirmRight = OptionController();
 
+  final OptionController speakLeft = OptionController();
+  final OptionController speakRight = OptionController();
+
+  final OptionController submit = OptionController();
+
   late final Map<String, OptionController> map;
   late final Map<String, List<String>> columns;
 
@@ -86,6 +91,13 @@ class PracticeController {
       // Confirm buttons
       'lc': confirmLeft,
       'rc': confirmRight,
+
+      // Speak buttons
+      'ls': speakLeft,
+      'rs': speakRight,
+
+      // Submit
+      'sb': submit
     };
 
     columns = {
@@ -95,6 +107,9 @@ class PracticeController {
       'r2': ['l31', 'l32', 'l33', 'l34', 'l35'],
       'lc': ['lc'],
       'rc': ['rc'],
+      'ls': ['ls'],
+      'rs': ['rs'],
+      'sb': ['sb']
     };
   }
 }
@@ -132,9 +147,41 @@ class ObservablePracticeController {
           /*if (notifier.value.map[key]!.bgColor == Colors.pink) {
             notifier.value.map[key]!.setColor(notifier.value.map[key]!.confirmColor);
           }*/
-          notifier.value.map[key]!.setColor(
+          if (['l01', 'l02', 'l03', 'l04', 'l11', 'l12', 'l13', 'l14', 'l15'].contains(key)) {
+            notifier.value.map[key]!.setColor(
+              notifier.value.pinyinHandler.checkLeftAnswer(int.parse(key[2]), 0)
+                  ? Colors.lightGreenAccent
+                  : notifier.value.map[key]!.confirmColor,
+            );
+            continue;
+          }
+          if (['l11', 'l12', 'l13', 'l14', 'l15'].contains(key)) {
+            notifier.value.map[key]!.setColor(
+              notifier.value.pinyinHandler.checkLeftAnswer(int.parse(key[2]), 1)
+                  ? Colors.lightGreenAccent
+                  : notifier.value.map[key]!.confirmColor,
+            );
+            continue;
+          }
+          if (['l21', 'l22', 'l23', 'l24'].contains(key)) {
+            notifier.value.map[key]!.setColor(
+              notifier.value.pinyinHandler.checkRightAnswer(int.parse(key[2]), 0)
+                  ? Colors.lightGreenAccent
+                  : notifier.value.map[key]!.confirmColor,
+            );
+            continue;
+          }
+          if (['l31', 'l32', 'l33', 'l34', 'l35'].contains(key)) {
+            notifier.value.map[key]!.setColor(
+              notifier.value.pinyinHandler.checkRightAnswer(int.parse(key[2]), 1)
+                  ? Colors.lightGreenAccent
+                  : notifier.value.map[key]!.confirmColor,
+            );
+            continue;
+          }
+          /*notifier.value.map[key]!.setColor(
             notifier.value.map[key]!.confirmColor,
-          );
+          );*/
         }
       }
     }
@@ -146,6 +193,7 @@ class ObservablePracticeController {
       List<String> list = notifier.value.columns[col]!;
       for (String key in list) {
         notifier.value.map[key]!.setColor(BACKGROUND_COLOR);
+        notifier.value.map[key]!.setConfirmColor(Colors.white);
       }
     }
     notifier.notifyListeners();
@@ -172,6 +220,7 @@ class ObservablePracticeController {
         notifier.value.map[key]!.setEnable(enable);
       }
     }
+    notifier.value.map['sb']!.isEnabled = !enable;
     notifier.notifyListeners();
   }
 
@@ -179,6 +228,7 @@ class ObservablePracticeController {
     await notifier.value.pinyinHandler.setup();
     resetColors();
     enableHalf(false);
+    notifier.value.map['sb']!.isEnabled = false;
     notifier.notifyListeners();
   }
 }

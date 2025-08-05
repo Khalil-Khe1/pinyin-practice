@@ -65,6 +65,7 @@ class _PracticePageState extends State<PracticePage> {
                               '${profile.pinyinHandler.getPinyinIdentity(profile.pinyinHandler.leftCandidate!)}.mp3',
                             ),
                           },
+                          isEnabled: profile.map['ls']!.isEnabled,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -305,6 +306,7 @@ class _PracticePageState extends State<PracticePage> {
                               '${profile.pinyinHandler.getPinyinIdentity(profile.pinyinHandler.rightCandidate!)}.mp3',
                             ),
                           },
+                          isEnabled: profile.map['rs']!.isEnabled,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -547,10 +549,10 @@ class _PracticePageState extends State<PracticePage> {
                       onPressed: () {
                         _observablePracticeController.revealColors();
                       },
+                      isEnabled: profile.map['sb']!.isEnabled,
                     ),
                     DefaultButton(
-                      label:
-                          'Next',
+                      label: 'Next',
                       onPressed: () async {
                         await _observablePracticeController.pinyinSetup();
                       },
