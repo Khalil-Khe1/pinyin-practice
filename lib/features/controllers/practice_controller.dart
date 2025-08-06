@@ -12,7 +12,6 @@ class OptionController {
 
   void setColor(Color color) {
     bgColor = color;
-    print('color changed');
   }
 
   void setConfirmColor(Color color) {
@@ -127,13 +126,12 @@ class ObservablePracticeController {
       List<String> list = notifier.value.columns[col]!;
       if (list.contains(key)) {
         for (String tmp_key in list) {
-          print(tmp_key);
           notifier.value.map[tmp_key]!.setColor(BACKGROUND_COLOR);
+          notifier.value.map[tmp_key]!.setConfirmColor(Colors.white);
         }
         break;
       }
     }
-
     notifier.value.map[key]!.setColor(Colors.pink);
     notifier.value.map[key]!.setConfirmColor(color);
     notifier.notifyListeners();
@@ -144,10 +142,7 @@ class ObservablePracticeController {
       List<String> list = notifier.value.columns[col]!;
       if ((!list.contains('rc')) || (!list.contains('lc'))) {
         for (String key in list) {
-          /*if (notifier.value.map[key]!.bgColor == Colors.pink) {
-            notifier.value.map[key]!.setColor(notifier.value.map[key]!.confirmColor);
-          }*/
-          if (['l01', 'l02', 'l03', 'l04', 'l11', 'l12', 'l13', 'l14', 'l15'].contains(key)) {
+          if (['l01', 'l02', 'l03', 'l04'].contains(key)) {
             notifier.value.map[key]!.setColor(
               notifier.value.pinyinHandler.checkLeftAnswer(int.parse(key[2]), 0)
                   ? Colors.lightGreenAccent
@@ -179,13 +174,20 @@ class ObservablePracticeController {
             );
             continue;
           }
-          /*notifier.value.map[key]!.setColor(
-            notifier.value.map[key]!.confirmColor,
-          );*/
         }
       }
     }
     notifier.notifyListeners();
+  }
+
+  String getColorName(Color color) {
+    // Map of Color objects to their names (you can extend this list)
+    final colorMap = {
+      Colors.white: 'white',
+      Colors.lightGreenAccent: 'green',
+      Colors.red: 'red'
+    };
+    return colorMap[color] ?? color.toString();
   }
 
   void resetColors() {

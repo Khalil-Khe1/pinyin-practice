@@ -64,16 +64,17 @@ class PinyinHandler {
 
     setLeftCandidate(candidates[0], dictionary[pinyin]![candidates[0]]!);
     setRightCandidate(candidates[1], dictionary[pinyin]![candidates[1]]!);
+    print('$pinyin: $leftAnswers $rightAnswers');
   }
 
   bool checkLeftAnswer(int tone, int slot) {
     List<int> answer = dictionary[pinyin]![leftCandidate]!;
-    return (answer[slot] == tone);
+    return (leftAnswers![slot] == tone);
   }
 
   bool checkRightAnswer(int tone, int slot) {
     List<int> answer = dictionary[pinyin]![rightCandidate]!;
-    return (answer[slot] == tone);
+    return (rightAnswers![slot] == tone);
   }
 
   Future<void> blacklistWord(String word) async {
