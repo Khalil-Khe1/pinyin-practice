@@ -222,6 +222,8 @@ class ObservablePracticeController {
         notifier.value.map[key]!.setEnable(enable);
       }
     }
+    notifier.value.map['rs']!.isEnabled = !enable;
+    notifier.value.map['ls']!.isEnabled = !enable;
     notifier.value.map['sb']!.isEnabled = !enable;
     notifier.notifyListeners();
   }

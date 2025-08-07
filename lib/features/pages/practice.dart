@@ -45,8 +45,7 @@ class _PracticePageState extends State<PracticePage> {
       builder: (contest, profile, _) {
         return Scaffold(
           backgroundColor: BACKGROUND_COLOR,
-          body: Padding(
-            padding: EdgeInsets.fromLTRB(40, 30, 40, 30),
+          body: Center(
             child: Column(
               spacing: 8,
               children: [
